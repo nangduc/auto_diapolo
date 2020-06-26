@@ -31,11 +31,12 @@ def Read_JSON():
         data = json.loads(data_file.read())
     return data
 JSON = Read_JSON()
-
 try:
 	os.system("taskkill /f /im D2VN.EXE")
 except:
 	pass
+
+from pywinauto.application import Application
 
 #open tool
 hotkey('ctrl','shift','l')
@@ -44,75 +45,94 @@ hotkey('ctrl','shift','l')
 while True:
 	try:
 		Wait(1)
-		app = Application().Connect(title=u'D2VN', class_name='WindowsForms10.Window.8.app.0.1fed012_r11_ad1')
+		app = Application().Connect(title=u'D2VN', class_name='WindowsForms10.Window.8.app.0.141b42a_r9_ad1')
 		break
 	except:
 		pass
 # class_name='WindowsForms10.Window.8.app.0.1fed012_r11_ad1'
+inta = 1
+while inta == 1:
+	Wait(1)
+	app = Application().Connect(title=u'D2VN', class_name='WindowsForms10.Window.8.app.0.141b42a_r9_ad1')
+	windowsformswindowappbarad = app.D2VN
+	windowsformsbuttonappbarad = windowsformswindowappbarad.Button11
+	windowsformsbuttonappbarad.ClickInput()
 
-Wait(1)
-windowsformswindowappbarad = app.D2VN
-windowsformsbuttonappbarad = windowsformswindowappbarad.Button11
-windowsformsbuttonappbarad.ClickInput()
 
 
 
-
-while True:
-	try:
-		Wait(1)
-		app = Application().Connect(title=u'Diablo II', class_name='Diablo II')
-		break
-	except:
-		pass
-
-hotkey("enter")
-
-while True:
-	try:
-		Wait(1)
-		ClickOnImage('img\\1.png')
-		break
-	except:
-		pass
-Wait(2)
-pyperclip.copy(str(JSON['pass']))
-hotkey('ctrl','v')
-hotkey("tab")
-pyperclip.copy(str(JSON['id']))
-hotkey('ctrl','v')
-while True:
-	try:
-		Wait(1)
-		ClickOnImage('img\\login.png')
-		break
-	except:
-		pass
-
-while True:
-	try:
-		Wait(1)
-		ClickOnImage('img\\ok.png')
-		break
-	except:
-		pass
-
-intcout = 0
-while True:
-	try:
-		Wait(1)
-		ClickOnImage('img\\2.png')
-		Type('room'+str(intcout))
-		nameRoom = 'room'+str(intcout)
-		hotkey("enter")
-		intcout += 1
+	while True:
 		try:
 			Wait(1)
-			ClickOnImage('img\\3.png')
-		except:
+			app = Application().Connect(title=u'Diablo II', class_name='Diablo II')
 			break
-		
-	except:
-		pass
+		except:
+			pass
+
+	hotkey("enter")
+
+	while True:
+		try:
+			Wait(1)
+			ClickOnImage('img\\1.png')
+			break
+		except:
+			pass
+	Wait(2)
+	pyperclip.copy(str(JSON['pass']))
+	hotkey('ctrl','v')
+	hotkey("tab")
+	pyperclip.copy(str(JSON['id']))
+	hotkey('ctrl','v')
+	while True:
+		try:
+			Wait(1)
+			ClickOnImage('img\\login.png')
+			break
+		except:
+			pass
+
+	while True:
+		try:
+			Wait(1)
+			ClickOnImage('img\\ok.png')
+			break
+		except:
+			pass
+
+	intcout = 0
+	while True:
+		try:
+			Wait(1)
+			ClickOnImage('img\\2.png')
+			Type('room'+str(intcout))
+			nameRoom = 'room'+str(intcout)
+			hotkey("enter")
+			intcout += 1
+			try:
+				Wait(1)
+				print('vo')
+				ClickOnImage('img\\3.png')
+				print('k xuong')
+			except:
+				break
+			
+		except:
+			pass
+
+	intcout = 0
+	while True:
+		Wait(1)
+		try:
+			app = Application().Connect(title_re=u'Diablo II v*', class_name='Diablo II')
+			inta = 2
+			break
+		except:
+			pass
+		if intcout == 20:
+			app = Application().Connect(title=u'Diablo II', class_name='Diablo II')
+			app.Kill_()
+			break
+		intcout +=1
 
 DisplayMessageBox("NAME ROOM: "+ nameRoom)
